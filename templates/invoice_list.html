@@ -10,9 +10,9 @@
       <form method="get" class="invoice-search-form">
         <input
           type="text"
-          name="customer"
-          placeholder="Search by customer name"
-          value="{{ search_customer or '' }}"
+          name="phone"
+          placeholder="Search by phone number"
+          value="{{ search_phone or '' }}"
         />
         <input
           type="date"
@@ -20,7 +20,7 @@
           value="{{ search_date or '' }}"
         />
         <button type="submit" class="btn small">Search</button>
-        {% if search_customer or search_date %}
+        {% if search_phone or search_date %}
           <a href="{{ url_for('invoice_list') }}" class="btn small">Clear</a>
         {% endif %}
       </form>

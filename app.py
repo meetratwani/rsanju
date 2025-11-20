@@ -74,19 +74,20 @@ def invoice_list():
     store = get_store_settings()
 
     # Optional search filters from query string
-    search_customer = (request.args.get("customer") or "").strip()
+    # Search by customer phone number instead of name
+    search_phone = (request.args.get("phone") or "").strip()
     search_date = (request.args.get("date") or "").strip()
 
     invoices = list(_data.get("invoices", []))
     invoices.sort(key=lambda inv: inv.get("created_at", ""), reverse=True)
 
-    # Filter by customer name (case-insensitive substring match)
-    customer_filter = search_customer.lower()
-    if customer_filter:
+    # Filter by customer phone number (substring match)
+    phone_filter = search_phone
+    if phone_filter:
         invoices = [
             inv
             for inv in invoices
-            if (inv.get("customer_name") or "").lower().find(customer_filter) != -1
+            if phone_filter in (inv.get("customer_phone") or "")
         ]
 
     # Filter by invoice date (fall back to date part of created_at)
@@ -101,7 +102,7 @@ def invoice_list():
         "invoice_list.html",
         store=store,
         invoices=invoices,
-        search_customer=search_customer,
+        search_phone=search_phone,
         search_date=search_date,
     )
 

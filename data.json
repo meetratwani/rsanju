@@ -1,9 +1,9 @@
 {
   "store_settings": {
     "store_name": "R Sanju Store",
-    "address": "",
-    "phone": "",
-    "email": "",
+    "address": "VILLA-53\r\nSAVALIYA SUN VILLA\r\nGIDC Naroda",
+    "phone": "9879820035",
+    "email": "meetratwani262@gmail.com",
     "logo_url": ""
   },
   "invoices": [
@@ -76,29 +76,49 @@
       "id": "4"
     },
     {
-      "invoice_number": "RS-2025-0005",
-      "created_at": "2025-11-19 22:12:34",
-      "invoice_date": "2025-11-19",
+      "invoice_number": "RS-2025-0006",
+      "created_at": "2025-11-20 23:37:51",
+      "invoice_date": "2025-11-20",
       "customer_name": "Vikas 84",
       "customer_phone": "8734824104",
       "customer_address": ".",
       "customer_gstin": "",
-      "items": [],
-      "subtotal": 0.0,
-      "discount": 0.0,
+      "items": [
+        {
+          "description": "S 22 Ultra",
+          "quantity": 1.0,
+          "unit_price": 1500.0,
+          "line_total": 1500.0
+        },
+        {
+          "description": "S 22",
+          "quantity": 1.0,
+          "unit_price": 700.0,
+          "line_total": 700.0
+        }
+      ],
+      "subtotal": 2200.0,
+      "discount": 10.0,
       "tax": 0.0,
-      "total": 0.0,
-      "payment_mode": "CASH",
-      "payment_reference": "",
+      "total": 2190.0,
+      "payment_mode": "UPI",
+      "payment_reference": "ritu",
       "notes": "",
       "id": "5"
     }
   ],
-  "invoice_counter": 5,
+  "invoice_counter": 6,
   "expenses": [
     {
       "id": "1",
       "date": "2025-11-19",
+      "description": "LCD",
+      "category": "salary given",
+      "amount": 1500.0
+    },
+    {
+      "id": "2",
+      "date": "2025-11-20",
       "description": "LCD",
       "category": "salary given",
       "amount": 1500.0

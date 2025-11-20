@@ -13,6 +13,20 @@
     </div>
   </div>
 
+  <section class="store-details">
+    <h3>{{ store.store_name or 'R Sanju Store' }}</h3>
+    {% if store.address %}
+      <p>{{ store.address }}</p>
+    {% endif %}
+    {% if store.phone or store.email %}
+      <p>
+        {% if store.phone %}Phone / WhatsApp: {{ store.phone }}{% endif %}
+        {% if store.phone and store.email %} | {% endif %}
+        {% if store.email %}Email: {{ store.email }}{% endif %}
+      </p>
+    {% endif %}
+  </section>
+
   <section class="invoice-meta">
     <div>
       <p><strong>Invoice Number:</strong> {{ invoice.invoice_number }}</p>
