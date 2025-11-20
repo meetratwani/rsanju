@@ -106,6 +106,36 @@ def invoice_list():
     )
 
 
+@app.route("/invoices/export")
+def export_invoices():
+    """Export all invoices as a CSV file that opens in Excel."""
+    invoices = list(_data.get("invoices", []))
+    invoices.sort(key=lambda inv: inv.get("created_at", ""), reverse=True)
+
+    output = StringIO()
+    writer = csv.writer(output)
+
+    writer.writerow(["Invoice #", "Date & time", "Invoice date", "Customer", "Phone", "Total", "Payment mode"])
+    for inv in invoices:
+        writer.writerow([
+            inv.get("invoice_number", ""),
+            inv.get("created_at", ""),
+            inv.get("invoice_date", ""),
+            inv.get("customer_name") or "-",
+            inv.get("customer_phone") or "-",
+            f"{float(inv.get('total') or 0):.2f}",
+            inv.get("payment_mode") or "-",
+        ])
+
+    csv_data = output.getvalue()
+    output.close()
+
+    response = make_response(csv_data)
+    response.headers["Content-Type"] = "text/csv; charset=utf-8"
+    response.headers["Content-Disposition"] = "attachment; filename=invoices-all.csv"
+    return response
+
+
 @app.route("/invoice/new", methods=["GET", "POST"])
 def new_invoice():
     store = get_store_settings()
@@ -309,6 +339,33 @@ def expenses():
     all_expenses.sort(key=lambda e: e.get("date", ""), reverse=True)
     today = datetime.now().strftime("%Y-%m-%d")
     return render_template("expenses.html", store=store, expenses=all_expenses, today=today)
+
+
+@app.route("/expenses/export")
+def export_expenses():
+    """Export all expenses as a CSV file that opens in Excel."""
+    all_expenses = list(_data.get("expenses", []))
+    all_expenses.sort(key=lambda e: e.get("date", ""), reverse=True)
+
+    output = StringIO()
+    writer = csv.writer(output)
+
+    writer.writerow(["Date", "Description", "Category", "Amount"])
+    for exp in all_expenses:
+        writer.writerow([
+            exp.get("date", ""),
+            exp.get("description", ""),
+            exp.get("category") or "-",
+            f"{float(exp.get('amount') or 0):.2f}",
+        ])
+
+    csv_data = output.getvalue()
+    output.close()
+
+    response = make_response(csv_data)
+    response.headers["Content-Type"] = "text/csv; charset=utf-8"
+    response.headers["Content-Disposition"] = "attachment; filename=expenses-all.csv"
+    return response
 
 
 @app.route("/reports")
@@ -557,8 +614,4 @@ def settings():
 
 if __name__ == "__main__":
     # Runs on http://127.0.0.1:5000/ by default
-<<<<<<< HEAD
     app.run(debug=True, host="0.0.0.0", port=5000)
-=======
-    app.run(host='0.0.0.0', port=5000, debug=True)
->>>>>>> e6cc8b990743e05be5f43552a744cdd44fae71c9

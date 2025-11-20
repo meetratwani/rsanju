@@ -24,6 +24,7 @@
           <a href="{{ url_for('invoice_list') }}" class="btn small">Clear</a>
         {% endif %}
       </form>
+      <a class="btn" href="{{ url_for('export_invoices') }}">Export to Excel</a>
       <a class="btn primary" href="{{ url_for('new_invoice') }}">+ New Invoice</a>
     </div>
   </div>
